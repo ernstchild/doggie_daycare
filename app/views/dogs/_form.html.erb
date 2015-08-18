@@ -1,0 +1,50 @@
+<%= form_for(@dog) do |f| %>
+  <% if @dog.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@dog.errors.count, "error") %> prohibited this dog from being saved:</h2>
+
+      <ul>
+      <% @dog.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <%= f.label :name %><br>
+    <%= f.text_field :name, class: "form-control", placeholder: "Enter name" %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :owner_id %><br>
+    <%= f.collection_select :owner_id, Owner.all :id, :lastfirst, {prompt: "Select an owner"}, {class: "form-control"} %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :breed_id %><br>
+    <%= f.text_field :breed_id, Breed.all, :id, :breed, { prompt: "Select a breed"} %>
+  </div>
+  <div class="field form-group">
+    <%# TO DO Change to a datepicker once we learn how! %>
+    <%= f.label "Date of Birth" %><br>
+    <%= f.date_select :dob %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :allergies %><br>
+    <%= f.text_field :allergies, class: "form-control", placeholder: "Allergy" %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :vet_name, class: "form-control", placeholder: "Veterinarian" %><br>
+    <%= f.text_field :vet_name %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :vet_phone, class: "form-control", placeholder: "(###)-###-####" %><br>
+    <%= f.text_field :vet_phone %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :checked_in %><br>
+    <%= f.check_box :checked_in %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
